@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/images">
+        <file alias="add-node">Resources/plus.svg</file>
+        <file alias="del-node">Resources/delete.png</file>
+        <file alias="background">Resources/background.png</file>
+        <file alias="pointer">Resources/pointer.png</file>
+        <file alias="linepointer">Resources/linepointer.png</file>
+    </qresource>
+</RCC>
