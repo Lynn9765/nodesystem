@@ -22,7 +22,7 @@ class DiagramScene : public QGraphicsScene
 public:
 	enum Mode { InsertItem, InsertLine, InsertText, MoveItem };
 
-	explicit DiagramScene(QMenu *itemMenu, QObject *parent = 0);
+	explicit DiagramScene(QObject *parent = 0);
 	QFont font() const { return myFont; }
 	QColor textColor() const { return myTextColor; }
 	QColor itemColor() const { return myItemColor; }
@@ -40,8 +40,6 @@ protected:
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent *mouseEvent) override;
 
 private:
-	DiagramItem::DiagramType myItemType;
-	QMenu *myItemMenu;
 	Mode myMode;
 	bool leftButtonDown;
 	QPointF startPoint;

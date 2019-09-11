@@ -11,7 +11,7 @@ NodeSystem::NodeSystem()
 {
 	createActions();
 
-	scene = new DiagramScene(itemMenu, this);
+	scene = new DiagramScene(this);
 	scene->setSceneRect(QRectF(0, 0, 5000, 5000));
 	connect(scene, SIGNAL(itemInserted(DiagramItem*)),
 		this, SLOT(itemInserted(DiagramItem*)));

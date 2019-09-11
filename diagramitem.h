@@ -20,18 +20,28 @@ QT_END_NAMESPACE
 
 class Arrow;
 
+struct nodeMsg
+{
+	QString name;
+	QString leader;
+	QString teammate1;
+	QString teammate2;
+	QString teammate3;
+	QString description;
+};
+
 class DiagramItem : public QGraphicsPolygonItem
 {
 public:
 	enum { Type = UserType + 15 };
-	enum DiagramType { Step, Conditional, StartEnd, Io };
+	DiagramItem();
 
-	DiagramItem(DiagramType diagramType, QMenu *contextMenu, QGraphicsItem *parent = 0);
-
+	QRectF boundingRect() const override;
+	QPainterPath shape() const override;
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
+	QPolygonF polygon() const { return myPolygon; }
 	void removeArrow(Arrow *arrow);
 	void removeArrows();
-	DiagramType diagramType() const { return myDiagramType; }
-	QPolygonF polygon() const { return myPolygon; }
 	void addArrow(Arrow *arrow);
 	int type() const override { return Type; }
 
@@ -39,9 +49,9 @@ protected:
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value) override;
 
 private:
-	DiagramType myDiagramType;
+	nodeMsg *msg;
+	QColor color;
 	QPolygonF myPolygon;
-	QMenu *myContextMenu;
 	QList<Arrow *> arrows;
 };
 
