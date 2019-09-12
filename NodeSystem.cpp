@@ -2,10 +2,10 @@
 #include "diagramitem.h"
 #include "diagramscene.h"
 #include "NodeSystem.h"
-
+#include "nodeeditor.h"
+#include <QDebug>
 #include <QtWidgets>
-
-const int InsertTextButton = 10;
+#include <QString>
 
 NodeSystem::NodeSystem()
 {
@@ -15,8 +15,6 @@ NodeSystem::NodeSystem()
 	scene->setSceneRect(QRectF(0, 0, 5000, 5000));
 	connect(scene, SIGNAL(itemInserted(DiagramItem*)),
 		this, SLOT(itemInserted(DiagramItem*)));
-	connect(scene, SIGNAL(textInserted(QGraphicsTextItem*)),
-		this, SLOT(textInserted(QGraphicsTextItem*)));
 	connect(scene, SIGNAL(itemSelected(QGraphicsItem*)),
 		this, SLOT(itemSelected(QGraphicsItem*)));
 	createToolbars();
@@ -30,8 +28,8 @@ NodeSystem::NodeSystem()
 	//widget->setLayout(layout);
 
 	QSplitter* m_mainSplitter = new QSplitter(Qt::Horizontal, this);
-	QWidget *nodeWidget = new QWidget;
-	m_mainSplitter->addWidget(nodeWidget);
+	createNodeEditor();
+	m_mainSplitter->addWidget(nodeEditor);
 	m_mainSplitter->addWidget(view);
 	m_mainSplitter->setSizes({ 200, 800 });
 
@@ -83,6 +81,49 @@ void NodeSystem::sceneScaleChanged(const QString &scale)
 	view->resetMatrix();
 	view->translate(oldMatrix.dx(), oldMatrix.dy());
 	view->scale(newScale, newScale);
+}
+
+void NodeSystem::createNodeEditor()
+{
+	nodeEditor = new QWidget;	
+	QFormLayout* fLayout = new QFormLayout();
+	QVBoxLayout* vLayout = new QVBoxLayout();
+
+	lineEdit1 = new QLineEdit;
+	lineEdit2 = new QLineEdit;
+	lineEdit3 = new QLineEdit;
+	textEdit  = new QTextEdit;
+
+	colorBtn = new QPushButton;
+	connect(colorBtn, SIGNAL(clicked()), this, SLOT(colorBtnClicked()));
+	saveBtn = new QPushButton("save");
+
+	fLayout->addRow("Node name:", lineEdit1);
+	fLayout->addRow("leader:", lineEdit2);
+	fLayout->addRow("teammates:", lineEdit3);
+	fLayout->addRow("description:", textEdit);
+	fLayout->addRow("color:", colorBtn);
+
+	vLayout->addLayout(fLayout);
+	vLayout->addWidget(saveBtn);
+
+	nodeEditor->setLayout(vLayout);
+}
+
+void NodeSystem::colorBtnClicked()
+{
+	QColorDialog *colorDialog = new QColorDialog(this);
+	colorDialog->show();
+	connect(colorDialog, SIGNAL(colorSelected(QColor)), this, SLOT(setColor(QColor)));
+}
+
+void NodeSystem::setColor(QColor color)
+{
+	int red = color.red();
+	int green = color.green();
+	int blue = color.blue();
+	QString text = QString("background-color: rgb(%1, %2, %3)").arg(red).arg(green).arg(blue);
+	colorBtn->setStyleSheet(text);
 }
 
 void NodeSystem::createActions()

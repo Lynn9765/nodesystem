@@ -24,9 +24,7 @@ struct nodeMsg
 {
 	QString name;
 	QString leader;
-	QString teammate1;
-	QString teammate2;
-	QString teammate3;
+	QString teammate;
 	QString description;
 };
 

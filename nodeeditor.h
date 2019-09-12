@@ -8,7 +8,7 @@ class NodeEditor : public QWidget
 	Q_OBJECT
 
 public: 
-	NodeEditor(QWidget *parent);
+	NodeEditor();
 };
 
 #endif // NODEEDITOR_H

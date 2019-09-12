@@ -1,3 +1,17 @@
-﻿  diagramitem.cpp
+﻿  Uic'ing NodeSystem.ui...
+  Rcc'ing NodeSystem.qrc...
+  Moc'ing NodeSystem.h...
+  Moc'ing diagramscene.h...
+  Moc'ing nodeeditor.h...
+  arrow.cpp
+  diagramitem.cpp
+  diagramscene.cpp
+  main.cpp
+  nodeeditor.cpp
+  NodeSystem.cpp
+  qrc_NodeSystem.cpp
+  moc_NodeSystem.cpp
+  moc_diagramscene.cpp
+  moc_nodeeditor.cpp
   NodeSystem.vcxproj -> D:\project\NodeSystem\x64\Debug\NodeSystem.exe
   NodeSystem.vcxproj -> D:\project\NodeSystem\x64\Debug\NodeSystem.pdb (Full PDB)
